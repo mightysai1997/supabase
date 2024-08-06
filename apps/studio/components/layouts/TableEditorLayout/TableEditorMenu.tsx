@@ -38,11 +38,16 @@ import {
 } from 'ui-patterns/InnerSideMenu'
 import { useProjectContext } from '../ProjectLayout/ProjectContext'
 import EntityListItem from './EntityListItem'
+import useTable from 'hooks/misc/useTable'
 
 const TableEditorMenu = () => {
   const router = useRouter()
-  const { id } = useParams()
+  const { id: _id } = useParams()
   const snap = useTableEditorStateSnapshot()
+
+  const id = _id ? Number(_id) : undefined
+
+  const { data: selectedTable } = useTable(id)
 
   const [showModal, setShowModal] = useState(false)
   const [searchText, setSearchText] = useState<string>('')
@@ -67,7 +72,7 @@ const TableEditorMenu = () => {
     {
       projectRef: project?.ref,
       connectionString: project?.connectionString,
-      schema: snap.selectedSchemaName,
+      schema: selectedTable?.schema || snap.selectedSchemaName,
       search: searchText || undefined,
       sort,
       filterTypes: visibleTypes,
@@ -110,7 +115,7 @@ const TableEditorMenu = () => {
         <div className="flex flex-col gap-y-1.5">
           <SchemaSelector
             className="mx-4"
-            selectedSchemaName={snap.selectedSchemaName}
+            selectedSchemaName={selectedTable?.schema || snap.selectedSchemaName}
             onSelectSchema={(name: string) => {
               setSearchText('')
               snap.setSelectedSchemaName(name)
