@@ -153,9 +153,10 @@ const levelsData = {
   },
 }
 
-const MobileHeader = memo(function MobileHeader({ menuId }: { menuId: MenuId }) {
+type MobileHeaderProps = { menuId: MenuId } | { menuName: string }
+
+const MobileHeader = memo(function MobileHeader(props: MobileHeaderProps) {
   const mobileMenuOpen = useMenuMobileOpen()
-  const menuLevel = menuId
 
   return (
     <div
@@ -204,9 +205,9 @@ const MobileHeader = memo(function MobileHeader({ menuId }: { menuId: MenuId }) 
       >
         {mobileMenuOpen
           ? 'Close'
-          : menuLevel
-            ? levelsData[menuLevel]?.name
-            : levelsData['home'].name}
+          : 'menuId' in props
+            ? levelsData[props.menuId]?.name ?? levelsData['home'].name
+            : props.menuName}
       </span>
     </div>
   )
@@ -322,7 +323,9 @@ const NavContainer = memo(function NavContainer({ children }: PropsWithChildren)
 
 interface SkeletonProps extends PropsWithChildren {
   menuId?: MenuId
+  menuName?: string
   NavigationMenu?: ReactNode
+  hideFooter?: boolean
 }
 
 function TopNavSkeleton({ children }) {
@@ -336,9 +339,15 @@ function TopNavSkeleton({ children }) {
   )
 }
 
-function SidebarSkeleton({ children, menuId, NavigationMenu }: SkeletonProps) {
+function SidebarSkeleton({
+  children,
+  menuId,
+  menuName,
+  NavigationMenu,
+  hideFooter = false,
+}: SkeletonProps) {
   const mobileMenuOpen = useMenuMobileOpen()
-  const hideSideNav = !menuId
+  const hideSideNav = !menuId && !NavigationMenu
 
   return (
     <div className="flex flex-row h-full relative">
@@ -362,11 +371,15 @@ function SidebarSkeleton({ children, menuId, NavigationMenu }: SkeletonProps) {
             'backdrop-blur backdrop-filter bg-background'
           )}
         >
-          {!hideSideNav && <MobileHeader menuId={menuId} />}
+          {hideSideNav ? null : menuName ? (
+            <MobileHeader menuName={menuName} />
+          ) : (
+            <MobileHeader menuId={menuId} />
+          )}
         </div>
         <div className="grow">
           {children}
-          <Footer />
+          {!hideFooter && <Footer />}
         </div>
         <MobileMenuBackdrop />
       </Container>
