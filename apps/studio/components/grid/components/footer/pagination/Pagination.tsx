@@ -125,7 +125,7 @@ const Pagination = () => {
   const onPageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value
     const pageNum = Number(value) > maxPages ? maxPages : Number(value)
-    snap.setPage(pageNum || 1)
+    snap.setPage(pageNum)
   }
 
   const onRowsPerPageChange = (value: string | number) => {
@@ -165,6 +165,7 @@ const Pagination = () => {
                 size="tiny"
                 value={page}
                 onChange={onPageChange}
+                onFocus={(e) => e.target.select()}
                 style={{ width: '3rem' }}
                 min={1}
                 max={maxPages}
