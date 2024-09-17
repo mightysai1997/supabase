@@ -1,5 +1,5 @@
+import { Linkedin, Twitter, YCombinator } from 'icons'
 import Link from 'next/link'
-import { IconLinkedinSolid, IconTwitterX, IconYCombinator } from 'ui'
 
 const ShareArticleActions = ({
   title,
@@ -23,7 +23,7 @@ const ShareArticleActions = ({
         target="_blank"
         className="text-foreground-lighter hover:text-foreground"
       >
-        <IconTwitterX size={iconSize} />
+        <Twitter size={iconSize} />
       </Link>
 
       <Link
@@ -32,7 +32,7 @@ const ShareArticleActions = ({
         target="_blank"
         className="text-foreground-lighter hover:text-foreground"
       >
-        <IconLinkedinSolid size={iconSize} />
+        <Linkedin size={iconSize} />
       </Link>
       <Link
         aria-label="Share on Hacker News"
@@ -40,7 +40,7 @@ const ShareArticleActions = ({
         target="_blank"
         className="text-foreground-lighter hover:text-foreground"
       >
-        <IconYCombinator size={iconSize} />
+        <YCombinator size={iconSize} />
       </Link>
     </div>
   )

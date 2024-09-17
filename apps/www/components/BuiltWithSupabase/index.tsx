@@ -1,10 +1,11 @@
-import { Button, IconGitHubSolid } from 'ui'
 import Link from 'next/link'
+import { Button } from 'ui'
 
-import SectionContainer from '../Layouts/SectionContainer'
 import ExampleCard from '../ExampleCard'
+import SectionContainer from '../Layouts/SectionContainer'
 
 import Examples from 'data/Examples'
+import { Github } from 'icons'
 
 const BuiltExamples = () => {
   return (
@@ -18,7 +19,7 @@ const BuiltExamples = () => {
           <Button asChild type="default" size="small" className="h-full">
             <Link href="/docs/guides/examples">View all examples</Link>
           </Button>
-          <Button asChild type="default" icon={<IconGitHubSolid size="tiny" />} size="small">
+          <Button asChild type="default" icon={<Github size="tiny" />} size="small">
             <Link href="https://github.com/supabase/supabase/tree/master/examples">
               Official GitHub library
             </Link>
