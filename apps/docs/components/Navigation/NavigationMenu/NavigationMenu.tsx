@@ -12,6 +12,7 @@ enum MenuId {
   Auth = 'auth',
   Functions = 'functions',
   Realtime = 'realtime',
+  Warehouse = 'warehouse',
   Storage = 'storage',
   Ai = 'ai',
   Platform = 'platform',
@@ -83,6 +84,10 @@ const menus: Menu[] = [
   },
   {
     id: MenuId.Realtime,
+    type: 'guide',
+  },
+  {
+    id: MenuId.Warehouse,
     type: 'guide',
   },
   {
