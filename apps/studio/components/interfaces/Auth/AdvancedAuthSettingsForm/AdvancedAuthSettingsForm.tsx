@@ -313,6 +313,17 @@ const AdvancedAuthSettingsForm = () => {
                     />
                   )}
                   <FormField
+                    name="MFA_WEB_AUTHN"
+                    properties={{
+                      type: 'select',
+                      title: 'WebAuthn',
+                      description: 'Control use of WebAuthn factors',
+                      enum: MFAFactorSelectionOptions,
+                    }}
+                    formValues={values}
+                    disabled={!canUpdateConfig || !isProPlanAndUp}
+                  />
+                  <FormField
                     name="MFA_PHONE"
                     properties={{
                       type: 'select',
@@ -323,6 +334,7 @@ const AdvancedAuthSettingsForm = () => {
                     formValues={values}
                     disabled={!canUpdateConfig || !isProPlanAndUp}
                   />
+
                   {!hasValidMFAProvider && phoneMFAIsEnabled && (
                     <Alert_Shadcn_ variant="warning">
                       <WarningIcon />
